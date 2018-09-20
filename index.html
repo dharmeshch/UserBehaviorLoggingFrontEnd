@@ -5,10 +5,19 @@
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
         <script src = "submit.js"></script>
         <style>
+            #submit{
+                margin-left: 37%;
+            }
+            #signup{
+                margin-left: 58%;
+                margin-top: -21px;
+                display: block;
+            }
         </style>
     </head>
     <body>
         <nav class="navbar fixed-top navbar-dark bg-primary">
+            <h2 align = 'center'>CSE-591 Adaptive Web Assignment-1</h2>
         </nav>
         <div class="container">
             <h2 align ='center'>Login Page</h2>
@@ -22,10 +31,9 @@
                 <label for="pwd">Password:</label>
                 <input type="password" class="form-control" id="password"style="width:300px">
               </div>
+              <button type="submit" class="btn btn-default" id="submit" >Submit</button>
+              <a href = "signup.html" id = "signup">SignUp!</a>
             </form>
-            <button type="submit" class="btn btn-default" id="submit" align ='center'>Submit</button>
-            <br />
-            <a href = "signup.html">SignUp!</a>
           </div>
     </body>
 </html>
