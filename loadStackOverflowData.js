@@ -2,7 +2,7 @@ var questionNumber = 0;
 var startTimestamp = 0;
 var secondTime=0;
 $(document).ready(function(){
-    var counter = 2;
+    var counter = 0;
     $.ajax({
         type : 'GET',
         url : 'http://localhost:8080/getStackOverflowPage',
@@ -13,14 +13,14 @@ $(document).ready(function(){
         contentType: 'application/json;charset=utf-8',
         dataType : 'json',
         success : function(data){
-
             $(data).each(function(index, pageData){
                 counter++;
                 $('#accordion').append(''+'<div class="panel panel-default">'+
                     '<div class="panel-heading">'+
                     '<h4 class="panel-title">'+
                     '<a data-toggle="collapse" data-parent="#accordion" onclick = "logQuestion('+ pageData.id+')" href="#collapse'+counter+'">'+
-                    pageData.question+
+                    counter+') '+pageData.question+
+                    '<i class="fa fa-bookmark-o" id="bookmark'+pageData.id+'" style="float:right" onclick="addBookmark('+ pageData.id+')"></i>'+
                     '</a>'+
                     '</h4>'+
                     '</div>'+
@@ -29,14 +29,15 @@ $(document).ready(function(){
                     pageData.detailedQuestion+"<br />"+
                     '<a class="like" onclick="addvotes('+pageData.id+')"><i class="fa fa-thumbs-o-up"></i>'+
                     'Like </a>'+
-                    '<label class="qty1"  id="qty1">'+pageData.votes+'</label>'+
+                    '<label class="qty1"  id="like'+pageData.id+'">'+pageData.votes+'</label>'+
                     '<a class="dislike" onclick="adddislikes('+ pageData.id+')"><i class="fa fa-thumbs-o-down"></i>' +
                     'Dislike </a>'+
-                    '<label class="qty2"  id="qty2">'+pageData.dislikes + '</label>'+
+                    '<label class="qty2"  id="dislike'+pageData.id+'">'+pageData.dislikes + '</label>'+
                     '</div>'+
                     '</div>'
                     )
             })
+            bookmarkedData();
         },
         error : function(data){
             console.log(data);
@@ -91,10 +92,11 @@ function logQuestionHit(param1){
 
 function addvotes(questionid){
     console.log(questionid);
-    var content = $('#qty1').html();
+    var elementName = '#like'+questionid
+    var content = $(elementName).html();
     content++;
-    $('#qty1').empty();
-    $('#qty1').html(content);
+    $(elementName).empty();
+    $(elementName).html(content);
     $.ajax({
         type : 'POST',
         url : 'http://localhost:8080/postlike',
@@ -107,10 +109,11 @@ function addvotes(questionid){
 }
 
 function adddislikes(questionid){
-    var content = $('#qty2').html();
+    var elementName = '#dislike'+questionid
+    var content = $(elementName).html();
     content++;
-    $('#qty2').empty();
-    $('#qty2').html(content);
+    $(elementName).empty();
+    $(elementName).html(content);
     console.log(questionid),
     $.ajax({
         type : 'POST',
@@ -121,4 +124,37 @@ function adddislikes(questionid){
             questionId : questionid
         },
     }) 
+}
+
+function bookmarkedData(){
+    $.ajax({
+        type : 'GET',
+        url : 'http://localhost:8080/getBookmarked',
+        headers: { 
+            userName : sessionStorage.getItem('usernameGlobal'),  
+            apiKey : sessionStorage.getItem('apiKeyGlobal'),
+        },
+        success:function(data){
+            $(data).each(function(index, pageData){
+                var elementid = 'bookmark'+pageData.questionId;
+                var li = document.getElementById(elementid);
+                $(li).removeClass("fa fa-bookmark-o").addClass("fa fa-bookmark");
+            })
+        } 
+    })
+}
+
+function addBookmark(questionid){
+    var elementid = 'bookmark'+questionid;
+    var li = document.getElementById(elementid);
+    $(li).removeClass("fa fa-bookmark-o").addClass("fa fa-bookmark");
+    $.ajax({
+        type : 'POST',
+        url : 'http://localhost:8080/BookmarkQuestion',
+        headers: { 
+            userName : sessionStorage.getItem('usernameGlobal'),  
+            apiKey : sessionStorage.getItem('apiKeyGlobal'),
+            questionId : questionid
+        },
+    })
 }
