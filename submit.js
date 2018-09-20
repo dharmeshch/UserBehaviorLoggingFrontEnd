@@ -4,8 +4,6 @@ $(function (){
     var demo = $('#check');
     console.log("check")
     $('#submit').on('click',function(){
-        console.log('hello');
-        console.log(name.val()+' '+password.val());
         $.ajax({
             type : 'POST',
             url : 'http://localhost:8080/login',
