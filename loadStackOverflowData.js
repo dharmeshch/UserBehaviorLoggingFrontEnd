@@ -84,7 +84,6 @@ function logQuestionHit(param1){
         headers: { 
             userName : sessionStorage.getItem('usernameGlobal'),  
             apiKey : sessionStorage.getItem('apiKeyGlobal'),
-            count : 1,
             questionId : param1
         },
     })     

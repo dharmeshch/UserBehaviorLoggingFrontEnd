@@ -20,7 +20,7 @@ $(function (){
             },
             error : function(data){
                 console.log(data);
-                alert(data)
+                alert("Error!Please try again")
             }
         })
        

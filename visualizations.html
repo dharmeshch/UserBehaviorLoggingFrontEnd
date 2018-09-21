@@ -8,14 +8,30 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
         <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
         <script src="visualization1.js"></script>
+        <script src="addNewpost.js"></script>
+        <script src="findings.js"></script>
     </head>
     <body>
         <nav class="navbar fixed-top navbar-dark bg-primary">
                 <a class="navbar-brand" href="#"style="float: right;color: white;" onclick="logout()">Logout</a>
                 <a class="navbar-brand" href="visualizations.html"style="float: right;color: white;">Visualizations</a>
-                <a class="navbar-brand" href="#"style="float: right;color: white;"data-toggle="modal"data-target="#newPost">New Post</a>
                 <a class="navbar-brand" href="secondPage.html"style="float: right;color: white;">Home</a>
         </nav>
+        <div class="container">
+        <h2>Logged Actions</h2>
+            <h3>In this assignment 5 different actions of the user on the website are logged. They are</h3>
+            <ul>
+                <li>Average time spent by the user in reading the question</li>
+                <li>Number of hits on each question</li>
+                <li>Likes and Dislikes</li>
+                <li>Bookmarks</li>
+                <li>New Posts</li>
+            </ul>
+            <p>The amount of time spent on each question will help us understand the usefulness of the question. 
+                All the other statistics of the user like the number of questions posted, will help us categorise the users according to their activity. 
+                The number of questions bookmarked and the number of questions liked/disliked will specify the usefulness of the question and the validity of the question.
+                The number of hits for a question is logged to analyse the topics the user are interested in. All these actions can help in personalizing the website specific to
+                user. Using these the questions posted on the website can be ordered based on the user hits or bookmarks or time spent on</p>
         <div class="container" id="plot1">
 
         </div>
@@ -25,5 +41,9 @@
         <div class="container" id="plot3" align="center">
 
         </div>
+        <h2>Analysis & Findings of the visualizations</h2>
+            <ul id ="analysis">
+        </ul>
+    </div>
     </body>
 </html>
